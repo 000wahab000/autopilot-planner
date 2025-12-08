@@ -1,15 +1,48 @@
 {
-  "projectRoot": "./autopilot_planner",
-  "ignore": [
-    "**/Python-Passion-project/**",
-    "**/*.pdf",
-    "**/*.wav",
-    "**/*.png"
-  ],
-  "guidelines": [
-    "Never modify unrelated repos",
-    "Never touch Python-Passion-project",
-    "Only commit changes inside autopilot-planner",
-    "Ask before installing new dependencies"
-  ]
+  "projectName": "autopilot-planner",
+  "description": "AI-assisted task planning app with Flask, modular backend, and agent integrations.",
+  
+  "root": "./",
+  "workspaceProtection": {
+    "allowedPaths": [
+      "./autopilot_planner",
+      "./requirements.txt",
+      "./README.md",
+      "./.gitignore",
+      "./autopilot-planner-docs"
+    ],
+    "blockedPaths": [
+      "../Python-Passion-project",
+      "../Python-passion-project",
+      "../python-passion-project",
+      "../Python-passion",
+      "../python-passion",
+      "../*"
+    ],
+    "readOnlyPaths": [
+      "./autopilot-planner-docs"
+    ]
+  },
+
+  "rules": {
+    "neverModifyOutsideRoot": true,
+    "neverDeleteFiles": true,
+    "neverRenameRootDirectories": true,
+    "neverCreateNewRepos": true,
+    "neverTouchBlockedPaths": true
+  },
+
+  "execution": {
+    "requireConfirmation": true,
+    "safeMode": true
+  },
+
+  "tasks": {
+    "primaryEntryPoints": [
+      "./autopilot_planner/ui/app.py",
+      "./autopilot_planner/server/api.py",
+      "./autopilot_planner/agents/ai_agent.py"
+    ],
+    "documentation": "./autopilot-planner-docs"
+  }
 }
