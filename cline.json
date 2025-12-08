@@ -1,0 +1,15 @@
+{
+  "projectRoot": "./autopilot_planner",
+  "ignore": [
+    "**/Python-Passion-project/**",
+    "**/*.pdf",
+    "**/*.wav",
+    "**/*.png"
+  ],
+  "guidelines": [
+    "Never modify unrelated repos",
+    "Never touch Python-Passion-project",
+    "Only commit changes inside autopilot-planner",
+    "Ask before installing new dependencies"
+  ]
+}
