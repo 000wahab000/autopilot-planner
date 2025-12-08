@@ -1,0 +1,12 @@
+{
+  "projectLimitations": {
+    "scope": "autopilot-planner Git repository only",
+    "restrictedFolders": ["Python-Passion-project", "autopilot-planner-docs"],
+    "safetyRules": [
+      "Never access or modify files outside the autopilot-planner repo",
+      "Treat autopilot-planner-docs as read-only documentation",
+      "Protect Python-Passion-project from any operations",
+      "Limit all git operations to autopilot-planner repository"
+    ]
+  }
+}
