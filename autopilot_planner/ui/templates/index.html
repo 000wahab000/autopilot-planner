@@ -6,7 +6,7 @@
     <title>Autopilot Planner - Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-50 min-h-screen">
     <!-- Navbar -->
     <nav class="bg-blue-600 text-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,24 +15,42 @@
                     <h1 class="text-xl font-bold">Autopilot Planner</h1>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="/" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                    <a href="/add" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Add Task</a>
-                    <a href="/plan" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">View Plan</a>
+                    <a href="/" class="bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="/add" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition duration-200">Add Task</a>
+                    <a href="/plan" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition duration-200">View Plan</a>
+                    <a href="/calendar" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition duration-200">Calendar</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <div class="text-center">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">Welcome to Autopilot Planner</h1>
-            <p class="text-lg text-gray-600 mb-8">Organize your tasks and generate your daily plan effortlessly.</p>
-            <div class="space-x-4">
-                <a href="/add" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Task</a>
-                <a href="/plan" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">View Plan</a>
+    <main class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">Welcome to Autopilot Planner</h1>
+                <p class="text-lg text-gray-600 mb-8">Organize your tasks and generate your daily plan effortlessly.</p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                    <a href="/add" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-200 transform hover:scale-105">Add Task</a>
+                    <a href="/plan" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-200 transform hover:scale-105">View Plan</a>
+                </div>
+
+                <div class="flex justify-center">
+                    <button id="ai-suggest-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-200 transform hover:scale-105">AI Suggest Tasks</button>
+                </div>
+
+                <div id="suggestions" class="mt-8 hidden">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-900">AI Suggestions</h2>
+                    <div id="suggestions-list" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-6"></div>
+                    <div class="flex justify-center">
+                        <button id="add-all-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-200 transform hover:scale-105 hidden">Add All Suggested Tasks</button>
+                    </div>
+                    <p id="add-message" class="mt-4 text-center text-green-600 font-medium"></p>
+                </div>
             </div>
         </div>
     </main>
+    <script src="/static/js/index.js"></script>
 </body>
 </html>

@@ -1,26 +1,32 @@
-from flask import Flask, render_template, request
-from autopilot_planner.server.add_task import add_task
-from autopilot_planner.agents.planner import generate_plan
+import os
+from flask import Flask, render_template
+from flask_cors import CORS
 
-app = Flask(__name__)
+BASE = os.path.dirname(__file__)
+TEMPLATES = os.path.join(BASE, "templates")
+STATIC = os.path.join(BASE, "static")
+
+app = Flask(__name__, template_folder=TEMPLATES, static_folder=STATIC, static_url_path="/static")
+CORS(app)
+
+from autopilot_planner.server.api import api_bp
+app.register_blueprint(api_bp, url_prefix="/api")
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-@app.route("/add", methods=["GET", "POST"])
+@app.route("/add")
 def add():
-    if request.method == "POST":
-        title = request.form["title"]
-        duration = int(request.form["duration"])
-        add_task(title, duration)
-        return "Task added!"
     return render_template("add.html")
 
 @app.route("/plan")
 def plan():
-    plan = generate_plan()
-    return render_template("plan.html", plan=plan)
+    return render_template("plan.html")
+
+@app.route("/calendar")
+def calendar():
+    return render_template("calendar.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

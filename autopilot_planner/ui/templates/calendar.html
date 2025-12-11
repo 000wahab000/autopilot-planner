@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autopilot Planner - Calendar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <h1 class="text-xl font-bold">Autopilot Planner</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition duration-200">Home</a>
+                    <a href="/add" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition duration-200">Add Task</a>
+                    <a href="/plan" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition duration-200">View Plan</a>
+                    <a href="/calendar" class="bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Calendar</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900">Calendar</h1>
+            <p class="text-lg text-gray-600 mt-2">View your tasks on the calendar</p>
+        </div>
+
+        <div id="calendar-tasks" class="mb-8"></div>
+
+        <div id="calendar" class="bg-white shadow-lg rounded-lg p-6" style="height: 800px;"></div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const response = await fetch('/api/calendar/events');
+                const events = await response.json();
+
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    height: '100%',
+                    events: events
+                });
+                calendar.render();
+            } catch (error) {
+                console.error('Error loading calendar events:', error);
+                // Fallback to empty calendar
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    height: '100%',
+                    events: []
+                });
+                calendar.render();
+            }
+        });
+    </script>
+    <script src="/static/js/plan.js"></script>
+</body>
+</html>
