@@ -6,7 +6,7 @@ from autopilot_planner.agents.ai_agent import get_suggestions, ai_chat_reply
 
 api_bp = Blueprint("api", __name__)
 
-DATA = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "tasks.json")
+DATA = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data", "tasks.json"))
 
 def load():
     if not os.path.exists(DATA):

@@ -4,6 +4,58 @@ document.addEventListener('DOMContentLoaded', function() {
     const suggestionsList = document.getElementById('suggestions-list');
     const addAllBtn = document.getElementById('add-all-btn');
     const addMessage = document.getElementById('add-message');
+    const tasksContainer = document.querySelector(".tasks-list");
+
+    // Load tasks from API
+    async function loadTasks() {
+        try {
+            const res = await fetch("/api/tasks");
+            const data = await res.json();
+
+            tasksContainer.innerHTML = "";  // Clear old content
+
+            // If no tasks
+            if (!data.tasks || data.tasks.length === 0) {
+                tasksContainer.innerHTML = `
+                    <p class="text-gray-500 text-lg">No tasks added yet.</p>
+                `;
+                return;
+            }
+
+            // Render each task
+            data.tasks.forEach((task, index) => {
+                const card = document.createElement("div");
+                card.className =
+                    "p-4 mb-4 bg-white rounded-lg shadow hover:shadow-md transition";
+
+                card.innerHTML = `
+                    <h3 class="text-xl font-semibold">${task.title}</h3>
+                    <p class="text-gray-600">Duration: ${task.duration} hour(s)</p>
+
+                    <button data-id="${index}"
+                        class="delete-btn mt-3 px-3 py-1 bg-red-500 text-white rounded">
+                        Delete
+                    </button>
+                `;
+
+                tasksContainer.appendChild(card);
+            });
+
+            // Attach delete listeners
+            document.querySelectorAll(".delete-btn").forEach(btn => {
+                btn.addEventListener("click", async () => {
+                    const id = btn.getAttribute("data-id");
+                    await fetch(`/api/tasks/${id}`, { method: "DELETE" });
+                    loadTasks();
+                });
+            });
+
+        } catch (err) {
+            console.error("Failed loading tasks:", err);
+        }
+    }
+
+    loadTasks();
 
     aiSuggestBtn.addEventListener('click', async function() {
         try {
@@ -80,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
             addMessage.textContent = `${added} tasks added successfully!`;
             addAllBtn.classList.add('hidden');
             suggestionsDiv.classList.add('hidden');
+            loadTasks();
 
         } catch (error) {
             addMessage.textContent = 'Failed to add tasks. Please try again.';
